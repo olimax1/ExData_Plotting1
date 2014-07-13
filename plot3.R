@@ -1,0 +1,18 @@
+data<-read.table('household_power_consumption.txt',sep=";",header=TRUE,stringsAsFactors=TRUE)
+
+data_day_1<-subset(data,data$Date=='1/2/2007')
+data_day_2<-subset(data,data$Date=='2/2/2007')
+data_cleaned<-rbind(data_day_1,data_day_2)
+x<-as.numeric(as.character(data_cleaned$Sub_metering_1))
+y<-as.numeric(as.character(data_cleaned$Sub_metering_2))
+z<-as.numeric(as.character(data_cleaned$Sub_metering_3))
+
+png(file='plot3.png')
+plot(x,type='n',axes=FALSE,xlab='',ylab='Energy sub metering')
+lines(x)
+lines(y,col='red')
+lines(z,col='blue')
+axis(1,at=c(50,1450,2880),labels=c('Thu','Fri','Sat'))
+axis(2)
+legend("topright",pch='__', col=c('black','red','blue'), legend=c('Sub_metering_1','Sub_metering_2','Sub_metering_3'))
+dev.off()
